@@ -30,9 +30,10 @@ diário, sendo R$15,00 de segunda à sexta e R$20,00 nos finais de semana;
 ## Executando a aplicação
 
 1. Como pré-requisito, possuir [docker](https://www.docker.com/).
-2. Baixar o arquivo docker-compose.yml deste repositório e executar o comando: docker-compose up
-Será baixada a imagem do banco de dados e da aplicação, onde a mesma ficará disponível na porta 8080.
-Importante: A imagem do banco de dados que o docker irá iniciar utiliza a porta 5432, fica imprescindível ter esta porta disponível ao iniciar a orquestragem dos containers.
+2. Baixar o arquivo docker-compose.yml deste repositório e executar o comando: docker-compose up.
+
+> Será baixada a imagem do banco de dados e da aplicação, onde a mesma ficará disponível na porta 8080.
+> Importante: A imagem do banco de dados que o docker irá iniciar utiliza a porta 5432, fica imprescindível ter esta porta disponível ao iniciar a orquestragem dos containers.
 
 ### API's disponíveis
-* [Wiki do projeto](https://maven.apache.org/)
+* [Wiki do projeto](https://github.com/aliniribeiroo/bates/wiki/API's)
