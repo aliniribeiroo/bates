@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:10.4
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgreSQL
+    restart: always
+    environment:
+      POSTGRES_ROOT_PASSWORD: postgres
+      POSTGRES_DB: bates
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - backend
+
+  pi-docker-postgres:
+    depends_on:
+      - db
+    image: aliniribeiroo/bates:latest
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      BATES_DB_HOST: jdbc:postgresql://db:5432/bates
+      BATES_DB_USER: postgres
+      BATES_DB_PASSWORD: postgres
+    networks:
+      - backend
+volumes:
+  db_data:
+
+### Networks Setup ############################################
+networks:
+  backend:
+    driver: "bridge"

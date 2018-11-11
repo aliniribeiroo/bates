@@ -1,0 +1,16 @@
+CREATE TABLE customer (
+	id UUID NOT NULL PRIMARY KEY,
+	NAME VARCHAR(255) NOT NULL,
+	REGISTER_ID VARCHAR(255) NOT NULL,
+	CRIATIONDATE TIMESTAMP,
+	phone VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE customer_checkin (
+	id UUID NOT NULL PRIMARY KEY,
+	customer UUID,
+	additional BOOLEAN NOT NULL,
+	checkin_date TIMESTAMP,
+	checkout_date TIMESTAMP,
+	CONSTRAINT customer_order_client_FKEY FOREIGN KEY (customer) REFERENCES customer (ID)
+);
