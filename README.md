@@ -35,5 +35,12 @@ diário, sendo R$15,00 de segunda à sexta e R$20,00 nos finais de semana;
 > Será baixada a imagem do banco de dados e da aplicação, onde a mesma ficará disponível na porta 8080.
 > Importante: A imagem do banco de dados que o docker irá iniciar utiliza a porta 5432, fica imprescindível ter esta porta disponível ao iniciar a orquestragem dos containers.
 
+> Para rodar a aplicação localmente, há a necessidade de passar as inforações da base de dados, conforme exemplo:
+```
+-DBATES_DB_HOST=jdbc:postgresql://localhost:5432/bates
+-DBATES_DB_USER=postgres
+-DBATES_DB_PASSWORD=postgres
+```
+
 ### API's disponíveis
 * [Wiki do projeto](https://github.com/aliniribeiroo/bates/wiki/API's)
