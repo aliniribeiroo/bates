@@ -1,7 +1,17 @@
 package com.aliniribeiro.bates.api.controller.customercheckin.contracts;
 
+import java.util.UUID;
+
 public class PastHostedCustomersDTO {
 
+    /**
+     * Id o registro do cliente na base de dados
+     */
+    public UUID customerId;
+
+    /**
+     * Nome do cliente
+     */
     public String custmerName;
 
     /**

@@ -14,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,7 +26,7 @@ public class CustomerController {
     public ResponseEntity<Response<CustomerDTO>> createClient(HttpServletRequest request, @RequestBody CustomerDTO custumer, BindingResult result) {
         Response<CustomerDTO> response = new Response<CustomerDTO>();
         try {
-            CustomerDTO createdCustumer = Spring.bean(CustomerService.class).createOrUpdateClient(custumer);
+            CustomerDTO createdCustumer = Spring.bean(CustomerService.class).createClient(custumer);
             response.setData(createdCustumer);
         } catch (Exception e) {
             response.getErrors().add(e.getMessage());
@@ -40,7 +39,7 @@ public class CustomerController {
     public ResponseEntity<Response<CustomerDTO>> update(HttpServletRequest request, @RequestBody CustomerDTO custumer, BindingResult result) {
         Response<CustomerDTO> response = new Response<CustomerDTO>();
         try {
-            CustomerDTO createdCustumer = Spring.bean(CustomerService.class).createOrUpdateClient(custumer);
+            CustomerDTO createdCustumer = Spring.bean(CustomerService.class).updateClient(custumer);
             response.setData(createdCustumer);
         } catch (Exception e) {
             response.getErrors().add(e.getMessage());
@@ -68,12 +67,14 @@ public class CustomerController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Response<String>> delete(@PathVariable("id") UUID id) {
         Response<String> response = new Response<String>();
-        Optional<CustomerEntity> customer = Spring.bean(CustomerRepository.class).findCustomerById(id);
-        if (!customer.isPresent()) {
-            response.getErrors().add("Register not found id:" + id);
+        try {
+            Optional<CustomerEntity> customer = Spring.bean(CustomerRepository.class).findCustomerById(id);
+            Spring.bean(CustomerService.class).delete(customer.get());
+        } catch (Exception e) {
+            response.getErrors().add(e.getMessage());
             return ResponseEntity.badRequest().body(response);
         }
-        Spring.bean(CustomerService.class).delete(customer.get());
+
         return ResponseEntity.ok(new Response<String>());
     }
 

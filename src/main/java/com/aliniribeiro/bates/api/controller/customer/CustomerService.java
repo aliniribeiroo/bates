@@ -25,13 +25,28 @@ public class CustomerService {
      * @param customerDTO dto com as informações do cliente que será criado.
      * @return DTO com as informações d cliente já atualizado.
      */
-    public CustomerDTO createOrUpdateClient(CustomerDTO customerDTO) {
+    public CustomerDTO createClient(CustomerDTO customerDTO) {
         CustomerEntity customer = new CustomerEntity();
+        customer.setName(customerDTO.name);
+        customer.setRegisterId(customerDTO.registerId);
+        customer.setCreationDate(LocalDateTime.now());
+        customer.setPhone(customerDTO.phone);
+        Spring.bean(CustomerRepository.class).save(customer);
+        return Spring.bean(CustomerMapper.class).customerDTO(customer);
+    }
 
-        if (customerDTO.id != null) {
-            Optional<CustomerEntity> c = Spring.bean(CustomerRepository.class).findCustomerById(customerDTO.id);
-            customer = c.isPresent() ? c.get() : customer;
+    /**
+     * Método que cria um novo cliente.
+     *
+     * @param customerDTO dto com as informações do cliente que será criado.
+     * @return DTO com as informações d cliente já atualizado.
+     */
+    public CustomerDTO updateClient(CustomerDTO customerDTO) {
+        Optional<CustomerEntity> c = Spring.bean(CustomerRepository.class).findCustomerById(customerDTO.id);
+        if (!c.isPresent()) {
+            Exceptions.customerNotFound(customerDTO.id);
         }
+        CustomerEntity customer = c.get();
         customer.setName(customerDTO.name);
         customer.setRegisterId(customerDTO.registerId);
         customer.setCreationDate(LocalDateTime.now());

@@ -28,12 +28,6 @@ import java.util.stream.Stream;
 @Component
 public class CustomerCheckInService {
 
-    /**
-     * Método que cria um novo cliente.
-     *
-     * @param checkinDTO dto com as informações do checkin que será criado.
-     * @return DTO com as informações d cliente já atualizado.
-     */
     public CheckInOutput createOrUpdateCheckIn(CheckInDTO checkinDTO) {
         CustomerCheckinEntity checkin = new CustomerCheckinEntity();
 
@@ -65,6 +59,7 @@ public class CustomerCheckInService {
             List<CustomerCheckinEntity> customerCheckins =  Spring.bean(CustomerCheckinRepository.class).getCustomersCheckin(isPastHosted, customer.getId());
             if (!customerCheckins.isEmpty()) {
                 PastHostedCustomersDTO dto = new PastHostedCustomersDTO();
+                dto.customerId = customer.getId();
                 dto.custmerName = customer.getName();
                 dto.lastHostedValue = format(getHostedValue(customerCheckins.stream().findFirst().get()));
                 dto.allhostedValue = getAllCheckinHostedValue(customerCheckins);
