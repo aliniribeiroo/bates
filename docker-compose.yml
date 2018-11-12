@@ -16,7 +16,7 @@ services:
     networks:
       - backend
 
-  pi-docker-postgres:
+  bates:
     depends_on:
       - db
     image: aliniribeiroo/bates:latest
